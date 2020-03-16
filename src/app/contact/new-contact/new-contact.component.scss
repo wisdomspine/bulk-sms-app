@@ -1,0 +1,58 @@
+@import '../../../themes.scss';
+
+@include nb-install-component() {
+    nb-tabset{
+        background-color: nb-theme(background-basic-color-1);
+        @include app-prefix(box-shadow, nb-theme(shadow));
+
+        nb-tab.manual{
+            &>div:first-child{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                >div{
+                    button{
+                        &:last-child{
+                            margin-left: 1em;
+                        }
+                    }
+                    display: flex;
+                    flex-flow: row nowrap;
+                }
+            }
+            &>div:nth-child(2){
+               display: flex;
+               flex-flow: column wrap;
+               >*{
+                   margin-top: .5em;
+                   display: flex;
+                   flex-flow: row nowrap;
+                   vertical-align: bottom;
+                   &:first-child, &:not(:first-child)>span:first-child{
+                       line-height: nb-theme(input-medium-text-line-height);
+                       font-size: nb-theme(input-medium-text-font-size);
+                       padding: nb-theme(input-medium-padding);
+                   }
+                   .sn{
+                       flex: 4rem 0 0;
+                   }
+                   .gender{
+                       flex: nb-theme(input-medium-max-width) 1 1;
+                   }
+                   .action{
+                       flex: 7rem 0 0;
+                       display: flex;
+                       flex-flow: row nowrap;
+                       justify-content: space-between;
+                   }
+                   .name{
+                       flex:nb-theme(input-medium-max-width) 1 1 ;
+                   }
+                   .phone{
+                    flex:nb-theme(input-medium-max-width) 1 1 ;   
+                   }
+               }
+            }
+        }
+    }
+}

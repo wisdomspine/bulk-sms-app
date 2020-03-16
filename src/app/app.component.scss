@@ -1,0 +1,28 @@
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '../themes.scss';
+
+@mixin variant($prop, $val){
+    -webkit-#{$prop}: $val;
+    -moz-#{$prop}: $val;
+    #{$prop}: $val;
+}
+@include nb-install-component() {
+    
+    nb-layout-header[subheader][fixed]{
+        position: fixed;
+
+        // nav{
+        //     box-shadow: none!important;
+        // }
+    }
+
+    nb-layout-header[subheader][fixed]{
+        background: transparent;
+        border: 0em;
+    }
+    nb-layout-column{
+        margin-top: 76px!important;
+    }
+  }
+  
+  

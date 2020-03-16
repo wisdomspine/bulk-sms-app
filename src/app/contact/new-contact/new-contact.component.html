@@ -1,0 +1,70 @@
+<nb-tabset>
+    <nb-tab tabTitle="Key in" class="manual">
+        <div>
+            <nb-select placeholder ="no. of records" shape="round" [outline] = "false" (selectedChange)="selectedChange($event)" [(selected)]="selected">
+                <nb-option *ngFor="let option of options; trackBy:option" value="{{option}}">
+                    {{option}}
+                </nb-option>
+            </nb-select>
+            <div>
+                <button nbButton shape="round" status="danger">
+                    <nb-icon icon="refresh-outline"></nb-icon>
+                    reset
+                </button>
+                <button nbButton shape="round" status="success">
+                    <nb-icon icon="checkmark-outline"></nb-icon>
+                    done
+                </button>   
+            </div>         
+        </div>
+        <div>
+            <div>
+                <span class="sn">
+                    SN
+                </span>
+                <span class="name">
+                    Name
+                </span>
+                <span class="phone">
+                    Phone
+                </span>
+                <span class="gender">
+                    Gender
+                </span>
+                <span class="action">
+                    Action
+                </span>
+            </div>
+            <form action="#" *ngFor="let form of contactsForm; trackBy:form; let i=index" [formGroup] = "form" (ngSubmit) = "submit(form)" >
+                <span class="sn">
+                    {{i+1}}
+                </span>
+                <span class="name">
+                    <input type="text" formControlName="name" nbInput placeholder="name">
+                </span>
+                <span class="phone">
+                    <input type="text" nbInput formControlName = "phone" placeholder="phone number">
+                </span>
+                <span class="gender">
+                    <nb-select placeholder="gender">
+                        <nb-option *ngFor="let g of gender" value="{{g}}">
+                            {{g}}
+                        </nb-option>
+                    </nb-select>
+                </span>
+                <span class="action">
+                    <button nbButton status="danger" (click)="removeForm(form)">
+                        <nb-icon icon="trash-outline"></nb-icon>                        
+                    </button>
+                    <button [disabled]="!form.valid" nbButton status="success" type="submit">
+                        <nb-icon icon="checkmark-outline"></nb-icon>
+                    </button>
+                </span>
+            </form>                    
+        </div>
+    </nb-tab>
+    <nb-tab tabTitle="Upload">
+
+    </nb-tab>
+
+</nb-tabset>

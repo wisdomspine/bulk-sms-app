@@ -1,1 +1,11 @@
-<p>subheader works!</p>
+<ul>
+    <li>
+        <nb-icon icon="plus-outline"></nb-icon>
+    </li>
+    <li *ngFor="let item of items">
+        <a [routerLink] = "item.url"> 
+            <nb-icon icon="person-outline"></nb-icon>
+        </a>
+
+    </li>
+</ul>

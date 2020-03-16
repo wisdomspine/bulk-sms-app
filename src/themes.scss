@@ -4,6 +4,9 @@
 @import '~@nebular/theme/styles/themes/cosmic';
 @import '~@nebular/theme/styles/themes/corporate';
 
+$nb-enable-css-custom-properties: true; // <-- enable css custom properties
+
+
 $nb-themes: nb-register-theme((
 ), default, default);
 
@@ -15,3 +18,11 @@ $nb-themes: nb-register-theme((
 
 $nb-themes: nb-register-theme((
 ), corporate, corporate);
+
+@mixin app-prefix($property, $value) {
+    -webkit-#{$property} : $value;
+    -moz-#{$property} : $value;
+    -ms-#{$property} : $value;
+    -o-#{$property} : $value;
+    #{$property} : $value;   
+}

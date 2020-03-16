@@ -1,0 +1,26 @@
+@import '../../../themes';
+
+@include nb-install-component {
+    ul{
+        list-style: none;
+        li{
+            display: inline-block;
+            &:not(:first-child){
+                margin-left: 1em;
+                @include app-prefix(box-shadow, nb-theme(shadow));
+                &:hover, &.active, &:focus{
+                    @include app-prefix(box-shadow, none);
+                }
+            }
+            &:first-child{
+                opacity: .7; 
+                background-color: nb-theme(color-basic-transparent-disabled ); 
+            }
+            
+            @include app-prefix(border-radius, 50%);
+            background-color: nb-theme(background-basic-color-1);
+            padding: 1em;
+        }
+        padding-left: 0px;
+    }   
+}

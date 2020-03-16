@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { NbSidebarModule, NbMenuModule, NbThemeModule, NbIconModule, NbSelectModule, NbActionsModule, NbLayoutModule } from '@nebular/theme';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubheaderComponent } from './subheader/subheader.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { SettingModule } from '../setting/setting.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -18,21 +20,23 @@ const NB_MODULES = [
   
 ];
 
-const OTHER_MODULES =[
-  CommonModule
+const NG_MODULES =[
+  CommonModule,
+  BrowserModule,
+  RouterModule
 ];
 
-const APP_MODULE = [
+const APP_MODULES = [
   SettingModule
 ]
 
-const declarations = [
+const DECLARATIONS = [
   HeaderComponent,
   SidebarComponent,
   SubheaderComponent
 ];
 
-const exports = [
+const EXPORTS = [
   HeaderComponent,
   SidebarComponent,
   SubheaderComponent
@@ -40,15 +44,15 @@ const exports = [
 
 @NgModule({
   declarations: [
-    ...declarations
+    ...DECLARATIONS
   ],
   imports: [
     ...NB_MODULES,
-    ...OTHER_MODULES,
-    ...APP_MODULE
+    ...NG_MODULES,
+    ...APP_MODULES
   ],
   exports: [
-    ...exports
+    ...EXPORTS
   ]
 })
 export class ThemeModule { }
