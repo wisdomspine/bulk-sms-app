@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { SettingModule } from './setting/setting.module';
 import { ContactModule } from './contact/contact.module';
 import { UtilsModule } from './utils/utils.module';
+import { DirectivesModule } from './directives/directives.module';
 
 const NB_IMPORTS = [
   NbThemeModule.forRoot({
@@ -30,7 +31,8 @@ const APP_IMPORTS = [
   SettingModule,
   ContactModule,
   AppRoutingModule,
-  UtilsModule
+  UtilsModule,
+  DirectivesModule
 ]
 
 const DECLARATIONS = [
@@ -42,7 +44,7 @@ const PROVIDERS = [
 ];
 
 const EXPORTS = [
-
+  DirectivesModule
 ];
 
 @NgModule({
@@ -50,7 +52,7 @@ const EXPORTS = [
   imports: [
     ...NG_IMPORTS,
     ...NB_IMPORTS,
-    ...APP_IMPORTS
+    ...APP_IMPORTS,
   ],
   providers: [...PROVIDERS],
   bootstrap: [AppComponent],

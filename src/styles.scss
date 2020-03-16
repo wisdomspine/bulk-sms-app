@@ -11,5 +11,9 @@
 
 nav{
   @include app-prefix(box-shadow, (0px 0px 0px nb-theme(background-basic-color-1)));
-  color: red;
 } 
+
+$top-1: 76px;
+$top-2: 76px * 2;
+$top-3: ($top-2)+50px;
+$top-4: ($top-3)+50px

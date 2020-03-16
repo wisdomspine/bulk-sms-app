@@ -46,7 +46,7 @@
                     <input type="text" nbInput formControlName = "phone" placeholder="phone number">
                 </span>
                 <span class="gender">
-                    <nb-select placeholder="gender">
+                    <nb-select placeholder="gender" [selected]="form.contact.gender">
                         <nb-option *ngFor="let g of gender" value="{{g}}">
                             {{g}}
                         </nb-option>
@@ -63,8 +63,35 @@
             </form>                    
         </div>
     </nb-tab>
-    <nb-tab tabTitle="Upload">
-
+    <nb-tab tabTitle="Upload" class="upload-tab">
+        <div>
+            <button nbButton shape="round" (click) = "downloadConatactsSpreadSheet()">
+                <nb-icon icon="download-outline"></nb-icon>Download spreadsheet
+            </button>
+            <button nbButton shape="round" (click) = "uploadSpreadSheet()" status="success" [disabled]="!uploadedSheet">
+                Upload records<nb-icon icon="upload-outline"></nb-icon>
+            </button>            
+        </div>
+        <nb-card>
+            <div [(file)] ="uploadedSheet" ngfDrop [maxSize]="settingService?.maxFileSize" [accept] = "accepts" [(lastInvalids)]="fileErrors" class="drop-area">
+                <!-- <div> -->
+                    <div class="input-div">
+                        <input type="file" ngf [accept] = "accepts" [(file)] ="uploadedSheet" [maxSize]="settingService?.maxFileSize" [(lastInvalids)]="fileErrors">
+                    </div>
+                    <span class="filename">
+                        {{uploadedSheet?.name}}
+                    </span>
+                    <p *ngFor="let error of fileErrors">
+                        <span *ngIf="error.type ==='accept'">
+                            invalid file format 
+                        </span>   
+                        <span *ngIf="error.type ==='fileSize'">
+                            File size is to large, epexted to be at most {{settingService?.maxFileSize | bytes  }} 
+                        </span>                                                                    
+                    </p>
+                <!-- </div> -->
+            </div>
+        </nb-card>
     </nb-tab>
 
 </nb-tabset>

@@ -5,7 +5,7 @@
         background-color: nb-theme(background-basic-color-1);
         @include app-prefix(box-shadow, nb-theme(shadow));
 
-        nb-tab.manual{
+        nb-tab.manual,nb-tab.upload-tab{
             &>div:first-child{
                 display: flex;
                 flex-flow: row nowrap;
@@ -20,7 +20,7 @@
                     flex-flow: row nowrap;
                 }
             }
-            &>div:nth-child(2){
+            &:not(.upload-tab)>div:nth-child(2){
                display: flex;
                flex-flow: column wrap;
                >*{
@@ -54,5 +54,65 @@
                }
             }
         }
+
+        nb-tab.upload-tab{
+            nb-card{
+                @include app-prefix(box-shadow, none);
+                margin-top: 1rem;
+                .drop-area{
+                    padding: 3rem;
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    @include app-prefix(border, (3px solid nb-theme(border-alternative-color-2)));
+                    >*:not(:first-child){
+                        line-height: nb-theme(input-medium-text-line-height);
+                        font-size: nb-theme(input-medium-text-font-size);
+                        padding: nb-theme(input-medium-padding);
+                    }
+                    p{
+                        color: nb-theme(text-danger-color)
+                    }
+
+                }
+                >div{
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: space-between;
+                    position: relative;
+                    .input-div{
+                        overflow: !important;
+                        position: relative;
+                        font-size: nb-theme(input-medium-text-font-size);
+                        padding: nb-theme(input-medium-padding);
+                        max-width: nb-theme(input-medium-max-width);                        
+                        @include app-prefix(border-radius, nb-theme(input-round-border-radius));
+                    }
+                    input:after{
+                        content: "Click or drag file to upload";
+                        position: absolute;
+                        display: block;
+                        left: 0;
+                        text-align: center;
+                        width: 100%;
+                        border: (nb-theme(input-border-width) nb-theme(input-border-style) nb-theme(input-basic-border-color));
+                        @include app-prefix(border-radius, nb-theme(input-round-border-radius));
+                        line-height: nb-theme(input-medium-text-line-height);
+                        font-size: nb-theme(input-medium-text-font-size);
+                        padding: nb-theme(input-medium-padding);
+                        max-width: nb-theme(input-medium-max-width);
+                        background-color: nb-theme(input-basic-background-color);
+                        top: 0;
+                        cursor: pointer;
+                        &{
+                            max-width:nb-theme(input-medium-max-width) ;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
