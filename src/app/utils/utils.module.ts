@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpreadSheetService } from './spread-sheet.service';
 import { FileReaderService } from './file-reader.service';
+import { InteractionModule } from './interaction/interaction.module';
 
 const NG_IMPORTS = [
   CommonModule
 ];
 
 const APP_IMPORTS = [ 
-
+  InteractionModule
 ];
 
 const OTHER_IMPORTS = [
@@ -25,7 +26,7 @@ const PROVIDERS = [
 ];
 
 const EXPORTS = [
-  
+  InteractionModule
 ];
 
 @NgModule({

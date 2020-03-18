@@ -10,10 +10,12 @@ export class FileReaderService {
    readAsBinaryString(blob: Blob): Promise<String | ArrayBuffer>{
      return new Promise((resolve, reject) => {
        const reader = new FileReader();
-       reader.onload = e => {
-        if(e && e.target && e.target.result)resolve(e.target.result)
-        else {
-          reject(new TypeError("empty blob"))
+       reader.onload = (e:any) => {
+         try{
+          resolve(e.target.result);
+         }
+        catch(f) {
+         reject(f)
         }
        };
        reader.onerror = e => reject(e);

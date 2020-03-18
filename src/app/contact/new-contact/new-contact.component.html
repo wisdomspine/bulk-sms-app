@@ -1,5 +1,5 @@
-<nb-tabset>
-    <nb-tab tabTitle="Key in" class="manual">
+<nb-tabset (changeTab)="tabChanged(tabs)" #tabs>
+    <nb-tab tabTitle="Key in" class="manual" >
         <div>
             <nb-select placeholder ="no. of records" shape="round" [outline] = "false" (selectedChange)="selectedChange($event)" [(selected)]="selected">
                 <nb-option *ngFor="let option of options; trackBy:option" value="{{option}}">
@@ -63,12 +63,12 @@
             </form>                    
         </div>
     </nb-tab>
-    <nb-tab tabTitle="Upload" class="upload-tab">
+    <nb-tab tabTitle="Upload" class="upload-tab" >
         <div>
             <button nbButton shape="round" (click) = "downloadConatactsSpreadSheet()">
                 <nb-icon icon="download-outline"></nb-icon>Download spreadsheet
             </button>
-            <button nbButton shape="round" (click) = "uploadSpreadSheet()" status="success" [disabled]="!uploadedSheet">
+            <button nbButton shape="round" (click) = "uploadSpreadSheet()" status="success" [disabled]="!uploadedSheet" [nbSpinner]="extracting" [nbSpinnerMessage] ="extractingmessage">
                 Upload records<nb-icon icon="upload-outline"></nb-icon>
             </button>            
         </div>

@@ -6,6 +6,8 @@ import { Gender } from 'src/app/enum/gender.enum';
 import { SpreadSheetService } from 'src/app/utils/spread-sheet.service';
 import { SettingService } from 'src/app/setting/setting.service';
 import { FileReaderService } from 'src/app/utils/file-reader.service';
+import { InteractionService } from 'src/app/utils/interaction/interaction.service';
+import { last } from 'rxjs/operators';
 @Component({
   selector: 'app-new-contact',
   templateUrl: './new-contact.component.html',
@@ -22,11 +24,17 @@ export class NewContactComponent implements OnInit {
   uploadedSheet: File;
   accepts: string= ".xlsx,.xlsm,.xlsb,.xls,.ods";
   fileErrors: {file:File,type:string}[] = [];
+  extracting: boolean = false;
+  extractingMessage: string = "Extracting contacts";
+  uploading: boolean = false;
+  notUploading: boolean = true;
+  tabs;
 
   constructor(
     public spreadSheetService: SpreadSheetService,
     public settingService: SettingService,
-    public fileReaderService: FileReaderService
+    public fileReaderService: FileReaderService,
+    public interactionService: InteractionService
   ) { }
 
   ngOnInit() {
@@ -34,9 +42,32 @@ export class NewContactComponent implements OnInit {
     this.generateForms();
   }
 
+  changeToUploading(u: boolean = true){
+    if(this.tabs){
+      this.tabs.last.activeValue = !!u;
+      this.tabs.first.activeValue = !u;
+    }
+
+  }
+
   selectedChange(event){
-    this.selected = event;
-    this.generateForms();
+    const prevValue = this.selected;
+    if(event < prevValue){
+      this.interactionService.confirm({context: {
+        message: `The last ${prevValue - event} records will be trimmed.Proceed?`
+      }}).onClose.subscribe((c: boolean)=> {
+        if(c){
+          this.selected = event;
+          this.generateForms();
+        }else{
+          event = prevValue;
+          return;
+        }
+      })
+    }else{
+      this.selected = event;
+      this.generateForms();
+    }
   }
 
   resetAll(){
@@ -127,56 +158,68 @@ export class NewContactComponent implements OnInit {
   }
 
   async uploadSpreadSheet(){
-    this.fileReaderService.readAsBinaryString(this.uploadedSheet).then( d => {
-      this.spreadSheetService.readWorkBook(d).then(wb => {
-        const sheet: string = wb.SheetNames[0];
-        this.spreadSheetService.readSheet(wb, sheet).then(s => {
-          this.spreadSheetService.getJSON(s).then(j => {
-            if(!j){
-              //sheets tempered with
-            }
-            const rows: string[][] = j;
-            if(rows.length > 1){
-              const header = rows[0].map(h => h+"".toLocaleLowerCase());
-              rows.shift();
-              let contacts: Contact[] = rows.map(
-                row => {
-                  const contact: Contact = new Contact();
-                  for(let i = 0; i< header.length; ++i){
-                    const col = header[i];
-                    const val = row[i];
-                    if(col === 'gender'){
-                      if(/^male|m$/ig.test(val)){
-                        console.log(contact);
-                        contact.gender = Gender.MALE;
-                      }else if(/^female|f$/ig.test(val)){
-                        contact.gender = Gender.FEMALE;
-                      }else{
-                        contact.gender = null;
-                      }
-                      continue;
-                    }
-                    contact[col] = val;
+    this.interactionService.confirm({context: {message: "All unsaved record will be lost. Proceed?"}}).onClose.subscribe(
+      (c: boolean)=>{
+        this.extracting = true;
+        if(c){
+          this.fileReaderService.readAsBinaryString(this.uploadedSheet).then( d => {
+            this.spreadSheetService.readWorkBook(d).then(wb => {
+              const sheet: string = wb.SheetNames[0];
+              this.spreadSheetService.readSheet(wb, sheet).then(s => {
+                this.spreadSheetService.getJSON(s).then(j => {
+                  if(!j){
+                    //sheets tempered with
                   }
-                  return contact;
-                }
-              )
-              this.generateForms(contacts)
-            }else{
-              //empty sheets
-            }
-          }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
-        }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
-      }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
-    }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
+                  const rows: string[][] = j;
+                  if(rows.length > 1){
+                    const header = rows[0].map(h => h+"".toLocaleLowerCase());
+                    rows.shift();
+                    let contacts: Contact[] = rows.map(
+                      row => {
+                        const contact: Contact = new Contact();
+                        for(let i = 0; i< header.length; ++i){
+                          const col = header[i];
+                          const val = row[i];
+                          if(col === 'gender'){
+                            if(/^male|m$/ig.test(val)){
+                              console.log(contact);
+                              contact.gender = Gender.MALE;
+                            }else if(/^female|f$/ig.test(val)){
+                              contact.gender = Gender.FEMALE;
+                            }else{
+                              contact.gender = null;
+                            }
+                            continue;
+                          }
+                          contact[col] = val;
+                        }
+                        return contact;
+                      }
+                    )
+                    this.generateForms(contacts)
+                    setTimeout(()=>this.changeToUploading(false), 0);
+                  }else{
+                    //empty sheets
+                  }
+                  this.extracting = false;
+                }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
+              }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
+            }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)
+          }).catch(this.__handleUploadErrors).finally(this.__finalizeUpload)          
+        }
+      }
+    )
   }
 
   private __handleUploadErrors(e: any){
-
+    this.extracting = false;
   }
 
   private __finalizeUpload(){
 
   }
 
+  tabChanged(e){
+    if(!this.tabs)this.tabs = e.tabs;
+  }
 }

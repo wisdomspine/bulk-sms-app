@@ -1,0 +1,18 @@
+<nb-card [status]= "status" [size] ="size" [accent] ="accent" >
+    <nb-card-body>
+        <p>
+            <nb-icon [icon] = "icon"></nb-icon>
+        </p>
+        <p>
+            {{message}}
+        </p>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton shape="round" [size]="size" status="danger" (click)="close(false)">
+            {{rejectLabel}}
+        </button>
+        <button nbButton shape="round" [size]="size" status="success" (click)="close(true)">
+            {{acceptLabel}}
+        </button>        
+    </nb-card-footer>
+</nb-card>

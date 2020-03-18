@@ -1,0 +1,21 @@
+<nb-card [status]= "status" [size] ="size" [accent] ="accent" >
+    <nb-card-header>
+        <p>
+            <nb-icon [icon] = "icon"></nb-icon>
+        </p>
+        <p>
+            {{question}}
+        </p>
+    </nb-card-header>
+    <nb-card-body>
+        <input type="text" nbInput [fullWidth]="true" [formControl]="control">
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton shape="round" [size]="size" status="danger" (click)="close(null)">
+            {{cancelLabel}}
+        </button>
+        <button nbButton shape="round" [size]="size" status="success" (click)="close(control.value)">
+            {{submitLabel}}
+        </button>        
+    </nb-card-footer>
+</nb-card>

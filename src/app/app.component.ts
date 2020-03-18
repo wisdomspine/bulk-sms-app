@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Constant } from './constant';
+import { InteractionService } from './utils/interaction/interaction.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,11 @@ import { Constant } from './constant';
 })
 export class AppComponent {
   title = Constant.TITLE;
+
+  constructor(
+    public interactionService: InteractionService
+  ){
+
+  }
+
 }

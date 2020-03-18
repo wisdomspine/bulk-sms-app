@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './contact.component';
 import { NewContactComponent } from './new-contact/new-contact.component';
-import { NbTabsetModule, NbSelectModule, NbButtonModule, NbIconModule, NbInputModule, NbCardModule } from '@nebular/theme';
+import { NbTabsetModule, NbSelectModule, NbButtonModule, NbIconModule, NbInputModule, NbCardModule, NbSpinnerModule } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UtilsModule } from '../utils/utils.module';
 import { ngfModule } from "angular-file";
@@ -29,7 +29,8 @@ const NB_IMPORTS = [
   NbButtonModule,
   NbIconModule,
   NbInputModule,
-  NbCardModule
+  NbCardModule,
+  NbSpinnerModule
 
 ];
 
