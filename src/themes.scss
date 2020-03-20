@@ -1,22 +1,49 @@
-@import '~@nebular/theme/styles/theming';
-@import '~@nebular/theme/styles/themes/default';
-@import '~@nebular/theme/styles/themes/dark';
-@import '~@nebular/theme/styles/themes/cosmic';
-@import '~@nebular/theme/styles/themes/corporate';
+@import '~@nebular/theme/styles/all';
 
-$nb-enable-css-custom-properties: true; // <-- enable css custom properties
+
+// $nb-enable-css-custom-properties: true; // <-- enable css custom properties
 
 
 $nb-themes: nb-register-theme((
+
+    //checkbox
+    checkbox-control-text-color: nb-theme(checkbox-basic-text-color),
+    checkbox-control-border-color: nb-theme(checkbox-basic-border-color),
+    checkbox-control-checked-border-color: nb-theme(checkbox-basic-checked-border-color	),
+    checkbox-control-indeterminate-background-color: nb-theme(checkbox-basic-indeterminate-background-color),
+    checkbox-control-indeterminate-border-color: nb-theme(checkbox-basic-indeterminate-border-color),
+    checkbox-control-focus-border-color: nb-theme(checkbox-basic-focus-border-color),
+    checkbox-control-hover-background-color: nb-theme(checkbox-basic-hover-background-color	),
+    checkbox-control-hover-border-color: nb-theme(checkbox-basic-hover-border-color),
+    checkbox-control-active-background-color: nb-theme(checkbox-basic-active-background-color),
+    checkbox-control-active-border-color: nb-theme(checkbox-basic-active-border-color),
+    checkbox-control-disabled-checkmark-color: nb-theme(checkbox-basic-disabled-checkmark-color),
+    checkbox-control-disabled-text-color: nb-theme(checkbox-basic-disabled-text-color)
 ), default, default);
 
 $nb-themes: nb-register-theme((
 ), dark, dark);
 
 $nb-themes: nb-register-theme((
+    checkbox-background-color: red,
+    checkbox-checked-background-color: pink,
+
 ), cosmic, cosmic);
 
 $nb-themes: nb-register-theme((
+    //checkbox
+    checkbox-control-text-color: nb-theme(checkbox-basic-text-color),
+    checkbox-control-border-color: nb-theme(checkbox-basic-border-color),
+    checkbox-control-checked-border-color: nb-theme(checkbox-basic-checked-border-color	),
+    checkbox-control-indeterminate-background-color: nb-theme(checkbox-basic-indeterminate-background-color),
+    checkbox-control-indeterminate-border-color: nb-theme(checkbox-basic-indeterminate-border-color),
+    checkbox-control-focus-border-color: nb-theme(checkbox-basic-focus-border-color),
+    checkbox-control-hover-background-color: nb-theme(checkbox-basic-hover-background-color	),
+    checkbox-control-hover-border-color: nb-theme(checkbox-basic-hover-border-color),
+    checkbox-control-active-background-color: nb-theme(checkbox-basic-active-background-color),
+    checkbox-control-active-border-color: nb-theme(checkbox-basic-active-border-color),
+    checkbox-control-disabled-checkmark-color: nb-theme(checkbox-basic-disabled-checkmark-color),
+    checkbox-control-disabled-text-color: nb-theme(checkbox-basic-disabled-text-color)
 ), corporate, corporate);
 
 @mixin app-prefix($property, $value) {

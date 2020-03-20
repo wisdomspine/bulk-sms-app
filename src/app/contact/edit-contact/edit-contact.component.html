@@ -1,0 +1,37 @@
+<nb-card  accent="primary" >
+    <nb-card-header>
+        <h6>
+            Edit Contact
+        </h6>
+
+        <button
+            nbButton
+            shape="round"
+            status="danger"
+            (click) = "delete()"
+        >
+            <nb-icon icon = "minus-circle-outline"></nb-icon>
+            delete
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <form action="#" [formGroup] = "form" (ngSubmit) = "submit()" *ngIf="formRetrieved">
+            <input type="text" formControlName="name" nbInput placeholder="name">
+
+            <input type="text" nbInput formControlName = "phone" placeholder="phone number" [formControl] ="form.controls.phone" [appTelFormatter]>
+            <nb-select placeholder="gender" [(selected)]="form.contact.gender">
+                <nb-option *ngFor="let g of gender" value="{{g}}">
+                    {{g}}
+                </nb-option>
+            </nb-select>
+        </form>           
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton shape="round" status="danger" (click)="close()">
+            cancel
+        </button>
+        <button nbButton shape="round" status="success" (click)="submit()" [disabled] = "form?.invalid || updating" [nbSpinner] = "updating">
+            update
+        </button>        
+    </nb-card-footer>
+</nb-card>

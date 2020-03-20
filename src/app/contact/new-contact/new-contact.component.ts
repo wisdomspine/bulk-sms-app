@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { RECORD_LENGTH_OPTIONS } from "../record-length-options";
 import { ContactFormModel } from '../contact-form.model';
 import { Contact } from '../contact.model';
-import { Gender } from 'src/app/enum/gender.enum';
+import { Gender, GENDERS } from 'src/app/enum/gender.enum';
 import { SpreadSheetService } from 'src/app/utils/spread-sheet.service';
 import { SettingService } from 'src/app/setting/setting.service';
 import { FileReaderService } from 'src/app/utils/file-reader.service';
 import { InteractionService } from 'src/app/utils/interaction/interaction.service';
 import { last } from 'rxjs/operators';
+import { ContactService } from '../contact.service';
+import { NbToastrService } from '@nebular/theme';
+import { ToastrTitle } from 'src/app/utils/interaction/toastr';
+import { DocumentData, DocumentSnapshot } from '@angular/fire/firestore';
 @Component({
   selector: 'app-new-contact',
   templateUrl: './new-contact.component.html',
@@ -17,10 +21,7 @@ export class NewContactComponent implements OnInit {
   options: number[] = RECORD_LENGTH_OPTIONS;
   selected: number = 1;
   contactsForm: ContactFormModel[] = [];
-  gender: Gender[] = [
-    Gender.FEMALE,
-    Gender.MALE
-  ]
+  gender: Gender[] = GENDERS
   uploadedSheet: File;
   accepts: string= ".xlsx,.xlsm,.xlsb,.xls,.ods";
   fileErrors: {file:File,type:string}[] = [];
@@ -30,16 +31,39 @@ export class NewContactComponent implements OnInit {
   notUploading: boolean = true;
   tabs;
 
+  spinner: boolean = false;
+  spinnerStatus: string = "info";
+  spinnerMessage: string ="saving contacts";
+
   constructor(
     public spreadSheetService: SpreadSheetService,
     public settingService: SettingService,
     public fileReaderService: FileReaderService,
-    public interactionService: InteractionService
+    public interactionService: InteractionService,
+    public server: ContactService,
+    public toastrService: NbToastrService
   ) { }
 
   ngOnInit() {
     this.initialize();
     this.generateForms();
+    // const cont = new Contact();
+    // cont.name = "Sabo";
+    // this.server.create(cont).then(c =>{
+    //   this.server.get().subscribe(d => {
+    //     d.map(f=> {
+    //       const h: Document = f.payload.doc
+    //       console.log(f.payload.doc.data())
+    //       return f.payload.doc.id
+    //     })
+    //   })
+    // });  
+
+    // setTimeout(()=> {
+    //   const g = new Contact();
+    //   g.gender = Gender.MALE
+    //   this.server.get(a => a.limit(3))
+    // }, 80000)
   }
 
   changeToUploading(u: boolean = true){
@@ -52,6 +76,7 @@ export class NewContactComponent implements OnInit {
 
   selectedChange(event){
     const prevValue = this.selected;
+    console.log(event, prevValue);
     if(event < prevValue){
       this.interactionService.confirm({context: {
         message: `The last ${prevValue - event} records will be trimmed.Proceed?`
@@ -74,7 +99,32 @@ export class NewContactComponent implements OnInit {
   
   }
 
+  private uploadingAll(o: boolean = true){
+    this.spinner = o;
+    this.spinnerMessage = o? "saving contacts..." : null;
+  }
   submitAll(){
+    //submit all forms
+    const formsToSave = this.contactsForm.filter(cf => !cf.uploading && cf.valid); //only valid forms that no save request have been initiated for should be saved
+    Promise.all(formsToSave.map(f => {
+      return this.submit(f);
+    })).then(s=> {
+      this.interactionService.notify({
+        context: {
+          status: "success",
+          body: "Contacts saved",
+          icon: 'done-all-outline'
+        }
+      })
+    }).catch(e => {
+      this.interactionService.notify({
+        context: {
+          status: "warning",
+          icon: 'alert-circle-outline',
+          body: "Not all contacts was saved"
+        }
+      })
+    })
     
   }
 
@@ -92,8 +142,27 @@ export class NewContactComponent implements OnInit {
   }
 
   submit(form: ContactFormModel){
-    console.log(form);
-    form.contact.name
+    if(form.invalid) return;
+
+    const contact = new Contact();
+    contact.date = new Date().toISOString()
+    contact.gender = form.contact.gender;
+    contact.name = form.controls.name.value? form.controls.name.value.replace(/[^A-Za-z0-9_\s'-]/gi, '') : null;
+    contact.phone = form.controls.phone.value;
+    form.uploading = true;
+    const promise = this.server.create(contact);
+    promise.then(e => {
+      this.toastrService.success(`${contact.contact} added to contacts`, ToastrTitle.SUCCESS);
+      this.removeForm(form);
+      --this.selected;
+      form.uploading = false;
+    }).catch(e => {
+      this.toastrService.danger(`${contact.contact} not added`, ToastrTitle.DANGER);
+      form.uploading = false;
+    })
+
+    return promise;
+
   }
 
   removeForm(form: ContactFormModel){
@@ -124,7 +193,6 @@ export class NewContactComponent implements OnInit {
     for(let contact of contacts){
       let contactForm = new ContactFormModel(contact)
       this.contactsForm.push(contactForm);
-      console.log(contactForm);
     }
   }
 
@@ -172,17 +240,16 @@ export class NewContactComponent implements OnInit {
                   }
                   const rows: string[][] = j;
                   if(rows.length > 1){
-                    const header = rows[0].map(h => h+"".toLocaleLowerCase());
+                    const header = rows[0].map(h => h+"".toLowerCase());
                     rows.shift();
                     let contacts: Contact[] = rows.map(
                       row => {
                         const contact: Contact = new Contact();
                         for(let i = 0; i< header.length; ++i){
                           const col = header[i];
-                          const val = row[i];
+                          const val = row[i]+"";
                           if(col === 'gender'){
                             if(/^male|m$/ig.test(val)){
-                              console.log(contact);
                               contact.gender = Gender.MALE;
                             }else if(/^female|f$/ig.test(val)){
                               contact.gender = Gender.FEMALE;

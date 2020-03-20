@@ -15,3 +15,12 @@ export const subMenuItems: NbMenuItem[] = [
         icon: "people-outline"
     },    
 ]
+
+export const menuItems: NbMenuItem[] = [
+    {
+        title: "Contacts",
+        icon: "people-outline",
+        link: APP_PATHS.contacts,
+        pathMatch: "full"
+    }
+]

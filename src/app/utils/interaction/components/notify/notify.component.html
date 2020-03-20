@@ -1,1 +1,15 @@
-<p>notify works!</p>
+<nb-card [status]= "status" [size] ="size" [accent] ="accent" >
+    <nb-card-body>
+        <p>
+            <nb-icon [icon] = "icon"></nb-icon>
+        </p>
+        <p>
+            {{body}}
+        </p>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton shape="round" [size]="size" [status]="status" (click)="close()">
+            {{dismissLabel}}
+        </button>        
+    </nb-card-footer>
+</nb-card>

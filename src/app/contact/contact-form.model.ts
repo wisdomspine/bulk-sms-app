@@ -1,8 +1,10 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Contact } from './contact.model';
+import { phoneValidator } from '../directives/validators/validate-phone';
 4
 export class ContactFormModel extends FormGroup{
     contact: Contact;
+    uploading: boolean = false;
     constructor(contact: Contact){
         super({
             gender: new FormControl(
@@ -11,16 +13,15 @@ export class ContactFormModel extends FormGroup{
             name: new FormControl(
                 contact.name || undefined,
                 [
-                    Validators.required,
                     Validators.minLength(3),
-                    Validators.maxLength(10)
+                    Validators.pattern(/^([\w'-]+\s?)*$/i)
                 ]
             ),
             phone: new FormControl(
                 contact.phone || undefined,
                 [
                     Validators.required,
-                    Validators.pattern(/e/)
+                    phoneValidator()
                 ]
             )
         })

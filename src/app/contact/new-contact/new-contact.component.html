@@ -1,4 +1,4 @@
-<nb-tabset (changeTab)="tabChanged(tabs)" #tabs>
+<nb-tabset (changeTab)="tabChanged(tabs)" #tabs [nbSpinner]="spinner" [nbSpinnerStatus]="spinnerStatus" [nbSpinnerMessage]="spinnerMessage">
     <nb-tab tabTitle="Key in" class="manual" >
         <div>
             <nb-select placeholder ="no. of records" shape="round" [outline] = "false" (selectedChange)="selectedChange($event)" [(selected)]="selected">
@@ -11,7 +11,7 @@
                     <nb-icon icon="refresh-outline"></nb-icon>
                     reset
                 </button>
-                <button nbButton shape="round" status="success">
+                <button nbButton shape="round" status="success" (click)="submitAll()">
                     <nb-icon icon="checkmark-outline"></nb-icon>
                     done
                 </button>   
@@ -43,10 +43,10 @@
                     <input type="text" formControlName="name" nbInput placeholder="name">
                 </span>
                 <span class="phone">
-                    <input type="text" nbInput formControlName = "phone" placeholder="phone number">
+                    <input type="text" nbInput formControlName = "phone" placeholder="phone number" [formControl] ="form.controls.phone" [appTelFormatter]>
                 </span>
                 <span class="gender">
-                    <nb-select placeholder="gender" [selected]="form.contact.gender">
+                    <nb-select placeholder="gender" [(selected)]="form.contact.gender">
                         <nb-option *ngFor="let g of gender" value="{{g}}">
                             {{g}}
                         </nb-option>
@@ -56,7 +56,7 @@
                     <button nbButton status="danger" (click)="removeForm(form)">
                         <nb-icon icon="trash-outline"></nb-icon>                        
                     </button>
-                    <button [disabled]="!form.valid" nbButton status="success" type="submit">
+                    <button [disabled]="!form.valid || form.uploading" nbButton status="success" type="submit" [nbSpinner]="form.uploading">
                         <nb-icon icon="checkmark-outline"></nb-icon>
                     </button>
                 </span>

@@ -1,1 +1,83 @@
-<p>contact works!</p>
+<nb-card size="large"
+    [nbSpinner]="spinner" 
+    [nbSpinnerStatus]="spinnerStatus" 
+    [nbSpinnerMessage]="spinnerMessage"
+>
+    <nb-card-header>
+        <div>
+            <input type="text" nbInput placeholder="search: name, phone number" shape="round" (input) ="filter()" [formControl] = "search">
+        </div>
+        <p>
+            {{filteredContacts?.length | i18nPlural:resultMapping }}
+        </p>
+        <button
+            nbButton 
+            shape="round" 
+            [ghost] ="true" 
+            [outline]="true" 
+            status="danger"
+            (click) = "deleteAll()"        
+        > 
+            <nb-icon icon="minus-circle-outline">
+
+            </nb-icon>
+        </button>
+        <div>
+            <nb-select placeholder="gender" [(selected)]="gender" shape="round" (selectedChange) = "filter()">
+                <nb-option *ngFor="let g of genders" value="{{g}}">
+                    {{g}}
+                </nb-option>
+            </nb-select>
+        </div>
+        <div>
+            <nb-checkbox status="control" [formControl] = "selectAll" (checkedChange) = "selectAllContacts($event)">
+                Select all
+            </nb-checkbox>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-list>
+            <nb-list-item *ngFor="let contact of filteredContacts">
+                <nb-checkbox 
+                    status="control" 
+                    [formControl] = "contact?.selected"
+                    (checkedChange) = "selectOne($event, contact)"
+                >
+                    
+                </nb-checkbox>
+                <nb-user 
+                    [name]="contact?.data?.name"
+                    [title]="contact?.data?.formatInternational"
+                    [badgeStatus]="contact?.data?.badge.status"
+                    [badgeText]="contact?.data?.badge.text"
+                    badgePosition="bottom end"
+                >
+
+                </nb-user>
+                <div>
+                    <button 
+                        nbButton 
+                        shape="round" 
+                        [ghost] ="true" 
+                        [outline]="true" 
+                        status="danger"
+                        (click) = "deleteOne(contact)"
+                    > 
+                        <nb-icon icon="minus-circle-outline">
+
+                        </nb-icon>
+                    </button>
+
+                    <button nbButton shape="round" [ghost] ="true" [outline]="true" status="warning" (click) = "edit(contact)"> 
+                        <nb-icon icon="edit-outline">
+
+                        </nb-icon>
+                    </button>                    
+                </div>
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+
+    </nb-card-footer>
+</nb-card>
