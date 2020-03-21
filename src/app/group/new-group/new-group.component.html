@@ -1,0 +1,170 @@
+<nb-card size="large" [nbSpinner] ="saving">
+    <nb-card-header>
+        <h6>
+            {{editing? 'Edit' : 'Create'}} group
+        </h6>
+    </nb-card-header>
+    <nb-card-body *ngIf="form">
+        <div>
+            <form action="#"
+                [formGroup] = "form"
+            >
+            <input 
+                type="text"
+                nbInput
+                formControlName = "name"
+                placeholder="group name"
+                [fullWidth] = "true"
+            >
+
+            <textarea 
+                nbInput
+                formControlName = "description"
+                placeholder = "group description"
+                [fullWidth] = "true"
+            >
+
+            </textarea>
+            <div *ngIf="!editing">
+                <button 
+                    type="reset"
+                    nbButton
+                    status = "danger"
+                    [disabled] = "form.untouched || saving"
+                    shape ="round"
+                >
+                    reset
+                </button>
+                <button 
+                    nbButton
+                    status = "success"
+                    [disabled]= "form.invalid || saving"
+                    (click) = submit($event)
+                    shape ="round"
+                >
+                    submit
+                </button>                
+            </div>
+            <div *ngIf="editing">
+                <button 
+                    type="reset"
+                    nbButton
+                    status = "danger"
+                    shape ="round"
+                    [disabled] = "saving"
+                >
+                    reset
+                </button>
+                <button 
+                    nbButton
+                    status = "success"
+                    [disabled]= "form.invalid || saving"
+                    (click) = submit($event)
+                    shape ="round"
+                >
+                    update
+                </button>                
+            </div>
+            </form>
+        </div>
+        <div *ngIf="editing">
+            <h6>
+                Contacts
+                (<span>{{groupContacts?.length}}</span>)
+            </h6>
+            <div>
+                <nb-card size="small">
+                    <nb-card-header>
+                        <input type="text" nbInput placeholder="search: name, phone number" shape="round" (input) ="filterAvailable()" [formControl] = "availableSearch">
+                        <nb-select placeholder="gender" [(selected)]="availableGender" shape="round" (selectedChange) = "filterAvailable($event)">
+                            <nb-option *ngFor="let g of genders" value="{{g}}">
+                                {{g}}
+                            </nb-option>
+                        </nb-select>
+                        <p>({{availabaleContacts?.length}})</p>
+                        <nb-checkbox status="control" (checkedChange) = "selectAll($event, true)" [formControl]="selectAllAvailable">
+                        </nb-checkbox>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item *ngFor="let contact of matchedAvailableContacts">
+                                <nb-checkbox 
+                                    status="control" 
+                                    [formControl] = "contact?.selected"
+                                    (checkedChange) = "selectOne($event, contact, true)"
+                                >
+                                    
+                                </nb-checkbox>
+                                <nb-user 
+                                    [name]="contact?.data?.name"
+                                    [title]="contact?.data?.formatInternational"
+                                    [badgeStatus]="contact?.data?.badge.status"
+                                    [badgeText]="contact?.data?.badge.text"
+                                    badgePosition="bottom end"
+                                >
+                
+                                </nb-user>
+                            </nb-list-item>
+                        </nb-list>                        
+                    </nb-card-body>
+                </nb-card>
+                <div>
+                    <button
+                        nbButton
+                        appearance="outline"
+                        (click) = "addContacts()"
+                    >
+                        <nb-icon icon="arrowhead-right-outline">
+
+                        </nb-icon>
+                    </button>
+
+                    <button
+                        nbButton
+                        appearance="outline"
+                        (click) = "removeContacts()"
+                    >
+                        <nb-icon icon="arrowhead-left-outline">
+
+                        </nb-icon>
+                    </button>                    
+                </div>
+                <nb-card size="small">
+                    <nb-card-header>
+                        <input type="text" nbInput placeholder="search: name, phone number" shape="round" (input) ="filterGroup()" [formControl] = "groupSearch">
+                        <nb-select placeholder="gender" [(selected)]="groupGender" shape="round" (selectedChange) = "filterGroup($event)">
+                            <nb-option *ngFor="let g of genders" value="{{g}}">
+                                {{g}}
+                            </nb-option>
+                        </nb-select>
+                        <p>({{groupContacts?.length}})</p>
+                        <nb-checkbox status="control" (checkedChange) = "selectAll($event, false)" [formControl]="selectAllGroupContacts">
+                        </nb-checkbox>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item *ngFor="let contact of matchedGroupContacts">
+                                <nb-checkbox 
+                                    status="control" 
+                                    [formControl] = "contact?.selected"
+                                    (checkedChange) = "selectOne($event, contact, false)"
+                                >
+                                    
+                                </nb-checkbox>
+                                <nb-user 
+                                    [name]="contact?.data?.name"
+                                    [title]="contact?.data?.formatInternational"
+                                    [badgeStatus]="contact?.data?.badge.status"
+                                    [badgeText]="contact?.data?.badge.text"
+                                    badgePosition="bottom end"
+                                >
+                
+                                </nb-user>
+                            </nb-list-item>
+                        </nb-list>                        
+                    </nb-card-body>                    
+                </nb-card>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

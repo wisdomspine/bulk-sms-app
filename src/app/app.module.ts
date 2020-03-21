@@ -14,6 +14,7 @@ import { DirectivesModule } from './directives/directives.module';
 import { AngularFireModule } from "@angular/fire";
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GroupModule } from './group/group.module';
 
 const NB_IMPORTS = [
   NbThemeModule.forRoot({
@@ -40,7 +41,8 @@ const APP_IMPORTS = [
   ContactModule,
   AppRoutingModule,
   UtilsModule,
-  DirectivesModule
+  DirectivesModule,
+  GroupModule
 ]
 
 const DECLARATIONS = [

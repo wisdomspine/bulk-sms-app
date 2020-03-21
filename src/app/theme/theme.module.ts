@@ -17,7 +17,8 @@ const NB_MODULES = [
   NbSelectModule,
   NbEvaIconsModule,
   NbThemeModule,
-  NbMenuModule
+  NbMenuModule,
+  NbActionsModule
   
 ];
 

@@ -4,7 +4,7 @@
     </li>
     <li *ngFor="let item of items">
         <a [routerLink] = "item.url"> 
-            <nb-icon icon="person-outline"></nb-icon>
+            <nb-icon [icon]="item.icon"></nb-icon>
         </a>
 
     </li>

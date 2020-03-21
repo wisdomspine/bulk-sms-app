@@ -38,5 +38,17 @@ export class ContactService extends DataServer<Contact> implements OnInit{
     })
   }
 
+  isIn(data: SelectableData<Contact>[], domain: SelectableData<Contact>[]): SelectableData<Contact>[]{
+    if(!domain) return [];
+
+    return data.filter(dat => domain.find(d => d.id == dat.id));
+  }
+
+  notIn(data: SelectableData<Contact>[], domain: SelectableData<Contact>[]): SelectableData<Contact>[]{
+    if(!domain) return data;
+
+    return data.filter(dat => !domain.find(d => d.id == dat.id));
+  }
+
 }
 

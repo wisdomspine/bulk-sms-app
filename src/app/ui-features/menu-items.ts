@@ -9,18 +9,25 @@ export const subMenuItems: NbMenuItem[] = [
         icon: "person-outline"
     },
     {
-        title: "add contact",
-        url: APP_PATHS.newContact,
+        title: "add group",
+        url: APP_PATHS.newGroup,
         pathMatch: "full",
         icon: "people-outline"
-    },    
+    }, 
+
 ]
 
 export const menuItems: NbMenuItem[] = [
     {
         title: "Contacts",
-        icon: "people-outline",
+        icon: "person-outline",
         link: APP_PATHS.contacts,
         pathMatch: "full"
+    },
+    {
+        title: "Groups",
+        icon: "people-outline",
+        pathMatch: "full",
+        link: APP_PATHS.groups
     }
 ]

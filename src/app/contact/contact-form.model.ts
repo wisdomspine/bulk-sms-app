@@ -1,7 +1,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Contact } from './contact.model';
 import { phoneValidator } from '../directives/validators/validate-phone';
-4
+
 export class ContactFormModel extends FormGroup{
     contact: Contact;
     uploading: boolean = false;
