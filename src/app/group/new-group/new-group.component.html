@@ -1,4 +1,6 @@
-<nb-card size="large" [nbSpinner] ="saving">
+<nb-card size="large" [nbSpinner] ="saving" 
+[nbSpinnerMessage]="spinnerMessage"
+>
     <nb-card-header>
         <h6>
             {{editing? 'Edit' : 'Create'}} group
@@ -82,14 +84,14 @@
                             </nb-option>
                         </nb-select>
                         <p>({{availabaleContacts?.length}})</p>
-                        <nb-checkbox status="control" (checkedChange) = "selectAll($event, true)" [formControl]="selectAllAvailable">
+                        <nb-checkbox status="basic" (checkedChange) = "selectAll($event, true)" [formControl]="selectAllAvailable">
                         </nb-checkbox>
                     </nb-card-header>
                     <nb-card-body>
                         <nb-list>
                             <nb-list-item *ngFor="let contact of matchedAvailableContacts">
                                 <nb-checkbox 
-                                    status="control" 
+                                    status="basic" 
                                     [formControl] = "contact?.selected"
                                     (checkedChange) = "selectOne($event, contact, true)"
                                 >
@@ -138,14 +140,14 @@
                             </nb-option>
                         </nb-select>
                         <p>({{groupContacts?.length}})</p>
-                        <nb-checkbox status="control" (checkedChange) = "selectAll($event, false)" [formControl]="selectAllGroupContacts">
+                        <nb-checkbox status="basic" (checkedChange) = "selectAll($event, false)" [formControl]="selectAllGroupContacts">
                         </nb-checkbox>
                     </nb-card-header>
                     <nb-card-body>
                         <nb-list>
                             <nb-list-item *ngFor="let contact of matchedGroupContacts">
                                 <nb-checkbox 
-                                    status="control" 
+                                    status="basic" 
                                     [formControl] = "contact?.selected"
                                     (checkedChange) = "selectOne($event, contact, false)"
                                 >

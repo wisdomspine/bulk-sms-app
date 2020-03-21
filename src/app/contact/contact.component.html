@@ -30,7 +30,7 @@
             </nb-select>
         </div>
         <div>
-            <nb-checkbox status="control" [formControl] = "selectAll" (checkedChange) = "selectAllContacts($event)">
+            <nb-checkbox status="basic" [formControl] = "selectAll" (checkedChange) = "selectAllContacts($event)">
                 Select all
             </nb-checkbox>
         </div>
@@ -39,7 +39,7 @@
         <nb-list>
             <nb-list-item *ngFor="let contact of filteredContacts">
                 <nb-checkbox 
-                    status="control" 
+                    status="basic" 
                     [formControl] = "contact?.selected"
                     (checkedChange) = "selectOne($event, contact)"
                 >

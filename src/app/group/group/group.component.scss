@@ -1,0 +1,22 @@
+@import '../../../themes.scss';
+
+@include nb-install-component(){
+    nb-card-header{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nb-list-item{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+
+        nb-checkbox{
+            margin-right: 1rem;
+        }
+        >div{
+            margin-left: auto;
+        }
+    }
+}

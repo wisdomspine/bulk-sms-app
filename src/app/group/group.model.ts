@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 
 export class Group {
     id: number;
-    name: Title;
+    name: string;
     description: string;
     contactsId: string[] = []; // array of contacts id
     contacts: SelectableData<Contact>[] = [];
@@ -20,4 +20,10 @@ export class Group {
             }).filter(c=> this.contactsId.find(id => id == c.id));
         })
     }
+}
+
+export const groupPluralMapping = {
+    '=0' : 'empty',
+    '=1' : '1 group',
+    'other' : '# groups'
 }

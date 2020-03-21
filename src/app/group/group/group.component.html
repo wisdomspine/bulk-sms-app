@@ -1,1 +1,75 @@
-<p>group works!</p>
+<nb-card size="large"
+    [nbSpinner]="spinner" 
+    [nbSpinnerStatus]="spinnerStatus" 
+    [nbSpinnerMessage]="spinnerMessage"
+>
+    <nb-card-header>
+            <input type="text" nbInput placeholder="group name, description" shape="round" (input) ="filter()" [formControl] = "search">
+        <p>
+            {{filteredGroups?.length | i18nPlural:resultMapping }}
+        </p>
+        <button
+            nbButton 
+            shape="round" 
+            [ghost] ="true" 
+            [outline]="true" 
+            status="danger"
+            (click) = "deleteAll()"        
+        > 
+            <nb-icon icon="minus-circle-outline">
+
+            </nb-icon>
+        </button>
+            <nb-checkbox status="control" [formControl] = "selectAll" (checkedChange) = "selectAllGroups($event)">
+                Select all
+            </nb-checkbox>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-list>
+            <nb-list-item *ngFor="let group of filteredGroups">
+                <nb-checkbox 
+                    status="basic" 
+                    [formControl] = "group?.selected"
+                    (checkedChange) = "selectOne($event, group)"
+                >
+                    
+                </nb-checkbox>
+                <nb-user 
+                    [name]="group?.data?.name"
+                    [title]="group?.data?.description"
+                    [badgeStatus]="info"
+                    [badgeText]="group?.data?.contactsId?.length"
+                    badgePosition="top right"
+                    status="warning" 
+                    [routerLink]="[editPath, group.id]"
+                >
+
+                </nb-user>
+                <div>
+                    <button 
+                        nbButton 
+                        shape="round" 
+                        [ghost] ="true" 
+                        [outline]="true" 
+                        status="danger"
+                        (click) = "deleteOne(group)"
+                    > 
+                        <nb-icon icon="minus-circle-outline">
+
+                        </nb-icon>
+                    </button>
+
+                    <button nbButton shape="round" [ghost] ="true" [outline]="true" status="warning" [routerLink]="[editPath, group.id]"
+                    > 
+                        <nb-icon icon="edit-outline">
+
+                        </nb-icon>
+                    </button>                    
+                </div>
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+
+    </nb-card-footer>
+</nb-card>

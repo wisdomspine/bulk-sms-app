@@ -35,9 +35,9 @@ export class ContactComponent implements OnInit{
     
   constructor(
     public server: ContactService,
-    private ref:ChangeDetectorRef,
     private interactionService: InteractionService,
-    private editContactService: EditContactService
+    private editContactService: EditContactService,
+    private ref: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -91,7 +91,8 @@ export class ContactComponent implements OnInit{
       }
     }).onClose.subscribe(r => {
       if(r){
-        this.server.delete(s.id)
+        this.server.delete(s.id);
+        this.ref.detectChanges()
       }
     })
   }
@@ -110,6 +111,7 @@ export class ContactComponent implements OnInit{
       if(r){
         this.spinner = true;
         Promise.all(toBeDeleted.map(tbd => this.server.delete(tbd.id))).then(s => {
+          this.ref.detectChanges()
           this.spinner = false;
         }).catch(e => {
           this.spinner = false;

@@ -41,6 +41,7 @@ export class NewGroupComponent implements OnInit {
   matchedGroupContacts: SelectableData<Contact>[];
 
   resultMapping: any = resultPluralMapping
+  spinnerMessage = "creating group"
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +79,7 @@ export class NewGroupComponent implements OnInit {
       group.description = this.form.controls["description"].value
 
       this.saving = true;
+      this.spinnerMessage = "creating group"
       this.server.create(group).then(g => {
         this.id = g.id;
         this.editing = true;
@@ -110,6 +112,7 @@ export class NewGroupComponent implements OnInit {
       group.contactsId = this.form.group.contactsId
 
       this.saving = true;
+      this.spinnerMessage = "updating group"
       this.server.update(group, this.id).then(g => {
         this.editing = true;
         this.saving = false ; //done saving

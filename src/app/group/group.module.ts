@@ -12,6 +12,7 @@ import { SettingModule } from '../setting/setting.module';
 import { DirectivesModule } from '../directives/directives.module';
 import { ngfModule } from 'angular-file';
 import { GroupService } from './group.service';
+import { RouterModule } from '@angular/router';
 
 const DECLARATIONS =[
   GroupComponent,
@@ -23,6 +24,7 @@ const NG_IMPORTS = [
   ContactRoutingModule,
   FormsModule,
   ReactiveFormsModule,
+  RouterModule
 ];
 
 const NB_IMPORTS = [    
