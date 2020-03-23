@@ -30,6 +30,7 @@
     "eva-icons": "^1.1.2",
     "firebase": "^7.11.0",
     "libphonenumber-js": "^1.7.47",
+    "nexmo": "^2.6.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "xlsx": "^0.15.6",
