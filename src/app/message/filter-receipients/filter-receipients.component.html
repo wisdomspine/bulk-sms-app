@@ -1,0 +1,42 @@
+<div [nbSpinner] = "!loaded" nbSpinnerStatus ="primary">
+    <nb-card  accent="primary" *ngIf="loaded" >
+        <nb-card-header>
+            <h6>
+                Filter
+            </h6>
+        </nb-card-header>
+        <nb-card-body>
+            <form action="#" [formGroup] = "form" (ngSubmit) = "submit()" *ngIf="formRetrieved">
+                <input 
+                    type="text" formControlName="search" nbInput 
+                    placeholder="search: name, phone no" shape="round"
+                    [fullWidth] = "true"
+                >
+
+                <nb-select placeholder="gender" formControlName="gender" shape="round"
+                [fullWidth] = "true"
+                >
+                    <nb-option *ngFor="let g of genders" value="{{g}}">
+                        {{g}}
+                    </nb-option>
+                </nb-select>
+
+                <nb-select placeholder="groups" formControlName="groupsId" shape="round"
+                [fullWidth] = "true" [multiple] = "true" [selected] = "filter?.groupsId || []"
+                >
+                    <nb-option *ngFor="let group of groups" value="{{group.id}}">
+                        {{group.name}}
+                    </nb-option>
+                </nb-select>                
+            </form>           
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton shape="round" status="danger" (click)="close()">
+                cancel
+            </button>
+            <button nbButton shape="round" status="success" (click)="submit()" [disabled] = "form?.invalid || updating" [nbSpinner] = "updating">
+                Go
+            </button>        
+        </nb-card-footer>
+    </nb-card>
+</div>

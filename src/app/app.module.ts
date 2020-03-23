@@ -15,6 +15,8 @@ import { AngularFireModule } from "@angular/fire";
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupModule } from './group/group.module';
+import { SmsModule } from './sms/sms.module';
+import { MessageModule } from './message/message.module';
 
 const NB_IMPORTS = [
   NbThemeModule.forRoot({
@@ -42,7 +44,9 @@ const APP_IMPORTS = [
   AppRoutingModule,
   UtilsModule,
   DirectivesModule,
-  GroupModule
+  GroupModule,
+  SmsModule.forRoot(environment.nexmoConfig), //configure the sms module
+  MessageModule
 ]
 
 const DECLARATIONS = [

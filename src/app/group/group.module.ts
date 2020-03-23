@@ -21,7 +21,6 @@ const DECLARATIONS =[
 
 const NG_IMPORTS = [
   CommonModule,
-  ContactRoutingModule,
   FormsModule,
   ReactiveFormsModule,
   RouterModule
@@ -44,7 +43,8 @@ const NB_IMPORTS = [
 const APP_IMPORTS =[
   UtilsModule,
   SettingModule,
-  DirectivesModule
+  DirectivesModule,
+  ContactRoutingModule,
 ];
 
 const OTHER_IMPORTS = [

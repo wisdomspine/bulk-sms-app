@@ -12,7 +12,7 @@ import { SmsService } from './sms.service';
   ]
 })
 export class SmsModule {
-  forRoot(config: CredentialsObject): ModuleWithProviders{
+  static forRoot(config: CredentialsObject): ModuleWithProviders{
     return {
       ngModule: SmsModule,
       providers: [

@@ -1,6 +1,12 @@
+import { CredentialsObject } from 'nexmo';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+const nexmoConfig: CredentialsObject = {
+  apiKey: "decc1d50",
+  apiSecret: "BypfLPHRs8mOnMLP"
+}
 
 export const environment = {
   production: false,
@@ -12,7 +18,9 @@ export const environment = {
     storageBucket: "sms-app-8ea41.appspot.com",
     messagingSenderId: "541348955227",
     appId: "1:541348955227:web:e65f503f61ac9784cfab7e"
-  }
+  },
+  nexmoConfig
+
 };
 
 /*
