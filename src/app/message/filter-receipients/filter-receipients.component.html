@@ -6,7 +6,7 @@
             </h6>
         </nb-card-header>
         <nb-card-body>
-            <form action="#" [formGroup] = "form" (ngSubmit) = "submit()" *ngIf="formRetrieved">
+            <form action="#" [formGroup] = "form" (ngSubmit) = "submit()" *ngIf="form">
                 <input 
                     type="text" formControlName="search" nbInput 
                     placeholder="search: name, phone no" shape="round"

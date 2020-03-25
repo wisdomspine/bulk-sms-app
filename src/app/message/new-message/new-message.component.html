@@ -1,1 +1,205 @@
-<p>new-message works!</p>
+<nb-card size="large" [nbSpinner] ="sending" 
+[nbSpinnerMessage]="spinnerMessage"
+>
+    <nb-card-header>
+        <h6>
+            {{editing? 'Edit' : 'Compose'}} Message
+        
+            <button
+                nbButton
+                appearance="ghost"
+                status = "warning"
+                *ngIf="message?.status === draft"
+            >   
+                Draft
+            </button>
+        </h6>
+    </nb-card-header>
+    <nb-card-body *ngIf="form">
+        <div>
+            <form action="#"
+                [formGroup] = "form"
+            >
+                <input 
+                    type="text"
+                    nbInput
+                    formControlName = "from"
+                    placeholder="Sender"
+                    [fullWidth] = "true"
+                >
+
+                <textarea 
+                    nbInput
+                    formControlName = "body"
+                    placeholder = "message"
+                    [fullWidth] = "true"
+                >
+
+                </textarea>
+                <div>
+                    <button 
+                    nbButton
+                    status = "info"
+                    shape ="round"
+                    [disabled] = "form.invalid || form.untouched"
+                    (click) = "markAsDraft()"
+                    *ngIf="message?.status !== draft"
+                    [nbSpinner] = "saving"
+                    >
+                        Mark as draft
+                    </button>
+
+                    <button 
+                    nbButton
+                    status = "danger"
+                    shape ="round"
+                    [disabled] = "form.invalid"
+                    (click) = "discard()"
+                    *ngIf="message?.status === draft"
+                    [nbSpinner] = "discarding"
+                    >
+                        Discard
+                    </button> 
+
+                    <button 
+                    nbButton
+                    status = "info"
+                    shape ="round"
+                    [disabled] = "form.invalid"
+                    (click) = "save(draft)"
+                    *ngIf="message?.status === draft"
+                    [nbSpinner] = "saving"
+                    >
+                        Save
+                    </button> 
+
+                    <button 
+                        type="reset"
+                        nbButton
+                        status = "danger"
+                        [disabled] = "form.untouched || sending"
+                        shape ="round"
+                    >
+                        reset
+                    </button>
+                    <button 
+                        nbButton
+                        status = "success"
+                        [disabled]= "form.invalid || sending"
+                        (click) = submit($event)
+                        shape ="round"
+                    >
+                        Send
+                    </button>                
+                </div>
+            </form>
+        </div>
+        <div [nbSpinner] = "loading" [nbSpinnerMessage] = "'loading contacts'">
+            <h6>
+                Contacts
+                (<span>{{receipients?.length}}</span>)
+            </h6>
+            <div>
+                <nb-card size="small">
+                    <nb-card-header>
+                        <input type="text" nbInput placeholder="search: name, phone number" shape="round" (input) ="filterAvailable()" [formControl] = "availableSearch">
+                        <p>({{matchedContacts?.length}})</p>
+                        <nb-checkbox status="basic" (checkedChange) = "selectAll($event, false)" [formControl]="selectAllAvailable">
+                        </nb-checkbox>
+                        <button
+                            nbButton
+                            appearance ="ghost"
+                            (click)= "advanceFilter(false)"
+                        >
+                            <nb-icon icon="options-2-outline">
+
+                            </nb-icon>
+                        </button>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item *ngFor="let contact of matchedContacts">
+                                <nb-checkbox 
+                                    status="basic" 
+                                    [formControl] = "contact?.selected"
+                                    (checkedChange) = "selectOne($event, contact, false)"
+                                >
+                                    
+                                </nb-checkbox>
+                                <nb-user 
+                                    [name]="contact?.data?.name"
+                                    [title]="contact?.data?.formatInternational"
+                                    [badgeStatus]="contact?.data?.badge.status"
+                                    [badgeText]="contact?.data?.badge.text"
+                                    badgePosition="bottom end"
+                                >
+                
+                                </nb-user>
+                            </nb-list-item>
+                        </nb-list>                        
+                    </nb-card-body>
+                </nb-card>
+                <div>
+                    <button
+                        nbButton
+                        appearance="outline"
+                        (click) = "addContacts()"
+                    >
+                        <nb-icon icon="arrowhead-right-outline">
+
+                        </nb-icon>
+                    </button>
+
+                    <button
+                        nbButton
+                        appearance="outline"
+                        (click) = "removeContacts()"
+                    >
+                        <nb-icon icon="arrowhead-left-outline">
+
+                        </nb-icon>
+                    </button>                    
+                </div>
+                <nb-card size="small">
+                    <nb-card-header>
+                        <input type="text" nbInput placeholder="search: name, phone number" shape="round" (input) ="filterReceipients()" [formControl] = "receipientSearch">
+                        <p>({{matchedReceipients?.length}})</p>
+                        <nb-checkbox status="basic" (checkedChange) = "selectAll($event, true)" [formControl]="selectAllReceipients">
+                        </nb-checkbox>
+                        <button
+                            nbButton
+                            appearance ="ghost"
+                            (click)= "advanceFilter(true)"
+                        >
+                            <nb-icon icon="options-2-outline">
+
+                            </nb-icon>
+                        </button>                        
+                    </nb-card-header>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item *ngFor="let contact of matchedReceipients">
+                                <nb-checkbox 
+                                    status="basic" 
+                                    [formControl] = "contact?.selected"
+                                    (checkedChange) = "selectOne($event, contact, true)"
+                                >
+                                    
+                                </nb-checkbox>
+                                <nb-user 
+                                    [name]="contact?.data?.name"
+                                    [title]="contact?.data?.formatInternational"
+                                    [badgeStatus]="contact?.data?.badge.status"
+                                    [badgeText]="contact?.data?.badge.text"
+                                    badgePosition="bottom end"
+                                >
+                
+                                </nb-user>
+                            </nb-list-item>
+                        </nb-list>                        
+                    </nb-card-body>                    
+                </nb-card>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

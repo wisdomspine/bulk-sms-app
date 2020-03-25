@@ -13,6 +13,9 @@ import { DirectivesModule } from '../directives/directives.module';
 import { ngfModule } from 'angular-file';
 import { FilterReceipientsComponent } from './filter-receipients/filter-receipients.component';
 import { FilterReceipientsService } from './filter-receipients/filter-receipients.service';
+import { MessageService } from './message.service';
+import { ContactModule } from '../contact/contact.module';
+import { GroupModule } from '../group/group.module';
 
 const DECLARATIONS =[
   MessageComponent,
@@ -46,7 +49,9 @@ const APP_IMPORTS =[
   UtilsModule,
   SettingModule,
   DirectivesModule,
-  MessageRoutingModule
+  MessageRoutingModule,
+  ContactModule,
+  GroupModule
 ];
 
 const OTHER_IMPORTS = [
@@ -54,7 +59,8 @@ const OTHER_IMPORTS = [
 ];
 
 const PROVIDERS =[
-  FilterReceipientsService
+  FilterReceipientsService,
+  MessageService
 ];
 
 const EXPORTS = [

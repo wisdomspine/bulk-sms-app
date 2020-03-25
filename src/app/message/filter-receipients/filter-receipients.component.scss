@@ -1,0 +1,20 @@
+@import '../../../themes.scss';
+
+@include nb-install-component(){
+    form{
+        display: flex;
+        flex-flow: column nowrap;
+        &>*:not(:last-child){
+            margin-bottom: 1rem;
+        }
+    }
+
+    nb-card-footer{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        >button:not(:last-child){
+            margin-right: 1rem;
+        }
+    }
+}

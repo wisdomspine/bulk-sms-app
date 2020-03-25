@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterReceipients, DefaultFilterReceipient } from './filter-receipients.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GroupService } from 'src/app/group/group.service';
 import { NbDialogRef } from '@nebular/theme';
 import { Gender, GENDERS } from 'src/app/enum/gender.enum';
-import { constructor } from 'bytes';
+import { FilterReceipients, DefaultFilterReceipient } from '../message.model';
 
 @Component({
   selector: 'app-filter-receipients',
@@ -24,7 +23,7 @@ export class FilterReceipientsComponent implements OnInit {
 
   constructor(
     private groupService: GroupService,
-    private ref: NbDialogRef<FilterReceipientsComponent>
+    public ref: NbDialogRef<FilterReceipientsComponent>
   ) { }
 
   ngOnInit() {
@@ -48,9 +47,11 @@ export class FilterReceipientsComponent implements OnInit {
   }
 
   submit(){
+    let gender = this.form.controls.gender.value;
+    gender = gender === Gender.FEMALE || gender === Gender.MALE ? gender : null
     this.ref.close({
       search: this.form.controls.search.value,
-      gender: this.form.controls.gender.value,
+      gender,
       groupsId: this.form.controls.groupsId.value
     })
   }

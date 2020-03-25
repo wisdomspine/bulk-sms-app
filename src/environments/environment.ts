@@ -1,9 +1,9 @@
-import { CredentialsObject } from 'nexmo';
+import { NexmoConfiguration } from 'src/app/sms';
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-const nexmoConfig: CredentialsObject = {
+const nexmoConfig: NexmoConfiguration = {
   apiKey: "decc1d50",
   apiSecret: "BypfLPHRs8mOnMLP"
 }

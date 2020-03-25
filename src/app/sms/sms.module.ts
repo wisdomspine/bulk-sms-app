@@ -1,24 +1,25 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CredentialsObject } from 'nexmo';
-import { SmsService } from './sms.service';
-
+import { SmsService, NEXMO_CONFIG } from './sms.service';
+import { NexmoConfiguration } from '.';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ]
 })
 export class SmsModule {
-  static forRoot(config: CredentialsObject): ModuleWithProviders{
+  static forRoot(config: NexmoConfiguration): ModuleWithProviders{
     return {
       ngModule: SmsModule,
       providers: [
         {
-          provide: SmsService,
-          useValue: new SmsService(config)
+          provide: NEXMO_CONFIG,
+          useValue: config
         }
       ]
     }

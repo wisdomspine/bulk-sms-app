@@ -1,0 +1,81 @@
+@import '../../../themes.scss';
+
+@include nb-install-component(){
+    nb-card-body{
+        display: flex;
+        flex-flow: column nowrap;
+        >div:first-child{
+            textarea{
+                resize: vertical;
+            }
+            display: flex;
+            flex-flow: column nowrap;
+            >*{
+                >:not(:last-child){
+                    margin-bottom: 1rem;
+                }
+            }
+            div{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-end;
+                >:not(:last-child){
+                    margin-right: 1rem;
+                }
+            }
+        }
+        >div:nth-child(2){
+            display: flex;
+            flex-flow: column nowrap;
+            >div{
+                /** card containing inner divs **/
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+
+                >div{ //action button div
+                    align-self: center;
+                    display: flex;
+                    flex-flow: column nowrap;
+                    margin-left: 1rem;
+                    margin-right: 1rem;
+                    align-items: center;;
+                    button:first-child{
+                        margin-bottom: 1rem;
+                    }
+                }
+                nb-card{
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    nb-card-header{
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                    }
+                }
+            }
+        }
+    }
+    h6{
+        font-size: nb-theme(text-subtitle-font-size);
+        line-height: nb-theme(text-subtitle-line-height);
+        font-weight: nb-theme(text-subtitle-font-weight	);
+
+        button{
+            float: right;
+        }
+    }
+
+    nb-list-item{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+ 
+        nb-checkbox{
+            margin-right: 1rem;
+            vertical-align: bottom;
+        }
+ 
+    }    
+}   

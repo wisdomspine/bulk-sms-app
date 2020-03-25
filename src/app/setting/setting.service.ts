@@ -7,5 +7,6 @@ import { Constant } from '../constant';
 export class SettingService {
   public appName: string = Constant.TITLE;
   public maxFileSize: number = 1024*1000*5; //max of 5mb file
+  public from: string = Constant.AUTHOR;
   constructor() { }
 }

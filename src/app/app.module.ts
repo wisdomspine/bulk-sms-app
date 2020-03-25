@@ -35,7 +35,7 @@ const NG_IMPORTS = [
   BrowserModule,
   CommonModule,
   AngularFireModule.initializeApp(environment.firebaseConfig),
-  BrowserAnimationsModule
+  BrowserAnimationsModule,
 ]
 
 const APP_IMPORTS = [

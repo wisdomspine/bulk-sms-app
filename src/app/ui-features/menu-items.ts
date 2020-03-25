@@ -38,7 +38,7 @@ export const menuItems: NbMenuItem[] = [
         link: APP_PATHS.groups
     },
     {
-        title: "compose message",
+        title: "Messages",
         link: APP_PATHS.newMessage,
         pathMatch: "full",
         icon: "message-circle-outline"
