@@ -39,7 +39,7 @@ export const menuItems: NbMenuItem[] = [
     },
     {
         title: "Messages",
-        link: APP_PATHS.newMessage,
+        link: APP_PATHS.messages,
         pathMatch: "full",
         icon: "message-circle-outline"
 

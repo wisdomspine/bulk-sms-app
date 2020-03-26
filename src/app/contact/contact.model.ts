@@ -1,11 +1,10 @@
 import { Gender } from '../enum/gender.enum';
 import { parsePhoneNumberFromString, parseDigits } from "libphonenumber-js";
+import { Model } from '../abstracts/model';
 
-export class Contact {
-    id: number;
+export class Contact extends Model{
     name: string;
     phone: string;
-    date: string;
     gender: Gender
 
     get contact(){

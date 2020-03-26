@@ -1,1 +1,95 @@
-<p>message works!</p>
+<nb-card
+    [nbSpinner]="loading ||deleting" 
+    [nbSpinnerMessage]="spinnerMessage"
+>
+    <nb-card-header>
+        <div>
+            <input type="text" nbInput placeholder="search" shape="round" (input) ="filter()" [formControl] = "search">
+        </div>
+        <p>
+            {{filteredContacts?.length | i18nPlural:resultMapping }}
+        </p>
+        <button
+            nbButton 
+            shape="round" 
+            [ghost] ="true" 
+            [outline]="true" 
+            status="danger"
+            (click) = "deleteSelected()"        
+        > 
+            <nb-icon icon="minus-circle-outline">
+
+            </nb-icon>
+        </button>
+        <div>
+            <nb-checkbox [formControl] = "selectAll" (checkedChange) = "selectAllMessages($event)">
+                Select all
+            </nb-checkbox>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-list>
+            <nb-list-item *ngFor="let message of filteredMessages; let i = index">
+                <nb-checkbox 
+                    status="basic" 
+                    [formControl] = "message?.selected"
+                    (checkedChange) = "selectOne($event, message)"
+                >
+                    
+                </nb-checkbox>
+                <nb-user 
+                    [name]="message?.data?.from"
+                    title="{{message?.data?.update || message?.data?.date |date}}{{message?.data?.update || message?.data?.date? ' : ':''}}{{message?.data?.body | appExcerpt:20}}"
+                    [badgeStatus]="getStatus(message)"
+                    [badgeText]="message?.data?.receipients?.length || '0'"
+                    badgePosition="top left"
+                >
+
+                </nb-user>
+                <div>
+                    <button 
+                        nbButton 
+                        shape="round" 
+                        appearance ="ghost" 
+                        status="danger"
+                        (click) = "deleteOne(message)"
+                    > 
+                        <nb-icon icon="minus-circle-outline">
+
+                        </nb-icon>
+                    </button>
+
+                    <button 
+                        *ngIf="isPreviewable(message)"
+                        nbButton 
+                        shape="round" 
+                        appearance="ghost" 
+                        status="warning" 
+                        (click) = "preview(message.id)"
+                        
+                    > 
+                        <nb-icon icon="eye-outline">
+
+                        </nb-icon>
+                    </button>  
+                    
+                    <button 
+                        *ngIf="!isPreviewable(message)"
+                        nbButton 
+                        shape="round" 
+                        appearance="ghost" 
+                        status="warning" 
+                        [routerLink]="['/'+link, message.id]" 
+                    > 
+                        <nb-icon icon="eye-outline">
+
+                        </nb-icon>
+                    </button>                     
+                </div>
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+
+    </nb-card-footer>
+</nb-card>

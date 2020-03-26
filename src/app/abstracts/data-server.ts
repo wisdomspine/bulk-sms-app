@@ -36,12 +36,13 @@ export abstract class DataServer <T>{
 
     create(data: T){
         const parsed = JSON.parse(JSON.stringify(data));
-        parsed.id = Date.now();
+        parsed.date = Date.now();
         return this.store.collection<T>(this.collection).add(parsed);
     }
 
     update(data:T, id: number|string){
         const parsed = JSON.parse(JSON.stringify(data));
+        parsed.update = Date.now();
         return this.store.doc<T>(this.collection+"/"+id).update(parsed);
     }
 

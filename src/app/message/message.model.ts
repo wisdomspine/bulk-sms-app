@@ -1,6 +1,7 @@
 import { Gender } from '../enum/gender.enum';
+import { Model } from '../abstracts/model';
 
-export class Message {
+export class Message extends Model{
   from: string;
   receipients: MessageReceipient[] = [];
   body: string;
@@ -48,4 +49,17 @@ export enum MessageReceipientStatus{
   NOT_SENT = 'not sent',
 }
 
+export const MESSAGE_STATA: MessageStatus[] = [
+  MessageStatus.DRAFT,
+  MessageStatus.SENT,
+  MessageStatus.PARTIAL,
+  MessageStatus.NOT_SENT,
+  MessageStatus.NO_RECEIPIENT
+]
+
+export const messagePluralMapping = {
+  '=0' : 'empty',
+  '=1' : '1 message',
+  'other' : '# messages'
+}
 

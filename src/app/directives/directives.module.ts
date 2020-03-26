@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BytesPipe } from './pipes/bytes.pipe';
 import { TelFormatterDirective } from './attributes/tel-formatter.directive';
+import { ExcerptPipe } from './pipes/excerpt.pipe';
 
 const DECLARATIONS =[
   BytesPipe,
-  TelFormatterDirective
+  TelFormatterDirective,
+  ExcerptPipe
 ];
 
 const NG_IMPORTS = [
@@ -31,7 +33,8 @@ const PROVIDERS =[
 
 const EXPORTS = [
   BytesPipe,
-  TelFormatterDirective
+  TelFormatterDirective,
+  ExcerptPipe
 ];
 @NgModule({
   declarations: [...DECLARATIONS],

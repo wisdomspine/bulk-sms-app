@@ -6,7 +6,7 @@ import { NbLayoutModule, NbSidebarModule, NbThemeModule, NbDialogModule, NbToast
 import { ThemeModule } from './theme';
 import { AppRoutingModule } from './app-routing.module';
 import { NbEvaIconsModule } from "@nebular/eva-icons";
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { SettingModule } from './setting/setting.module';
 import { ContactModule } from './contact/contact.module';
 import { UtilsModule } from './utils/utils.module';
@@ -17,6 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupModule } from './group/group.module';
 import { SmsModule } from './sms/sms.module';
 import { MessageModule } from './message/message.module';
+import localeNg from "@angular/common/locales/en-NG";
+import localeNgExtra from "@angular/common/locales/extra/en-NG";
+
+registerLocaleData(localeNg, 'en-NG', localeNgExtra)
 
 const NB_IMPORTS = [
   NbThemeModule.forRoot({

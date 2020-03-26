@@ -3,9 +3,9 @@ import { SelectableData, DataServer } from '../abstracts/data-server';
 import { Contact } from '../contact/contact.model';
 import { ContactService } from '../contact/contact.service';
 import { FormControl } from '@angular/forms';
+import { Model } from '../abstracts/model';
 
-export class Group {
-    id: number;
+export class Group extends Model{
     name: string;
     description: string;
     contactsId: string[] = []; // array of contacts id
