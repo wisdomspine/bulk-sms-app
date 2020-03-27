@@ -1,0 +1,126 @@
+<span class="close">
+    <button
+        nbButton
+        appearance ="ghost"
+        size = "giant"
+        status="danger"
+        (click) = "close()"
+    >
+        <nb-icon icon="close-outline">
+
+        </nb-icon>
+    </button>    
+</span>
+<span class="control">
+    <button
+        nbButton
+        appearance ="ghost"
+        size = "giant"
+        (click) = "prev()"
+    >
+        <nb-icon icon="arrow-back-outline">
+
+        </nb-icon>
+    </button>
+    <button
+        nbButton
+        appearance ="ghost"
+        size = "giant"
+        (click) = "next()"
+    >
+        <nb-icon icon="arrow-forward-outline">
+
+        </nb-icon>
+    </button>    
+</span>
+<nb-card
+    [nbSpinner]="loading ||deleting || sending" 
+    *ngIf="message"
+>
+    <nb-card-header>
+        <h6>
+            Message
+        </h6>
+        
+        <div>
+            <button
+                nbButton 
+                shape="round" 
+                status="danger"
+                (click) = "delete()"        
+            > 
+                Delete
+            </button>    
+            <button
+                nbButton 
+                shape="round" 
+                status="success"
+                *ngIf="!canRetry()"       
+            > 
+                Sent
+            </button>                  
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div>
+            <nb-list>
+                <nb-list-item>
+                    <p>
+                        <span>
+                            from
+                        </span>
+                        <span>
+                            {{message?.data?.from}}
+                        </span>
+                    </p>
+                </nb-list-item>
+                <nb-list-item>
+                    <p>
+                        {{message?.data.body}}
+                    </p>
+                </nb-list-item>   
+                <nb-list-item *ngIf="message && (message.data.update || message.data.date)">
+                    <p>
+                        {{message.data.update || message.data.date | date}}
+                    </p>
+                </nb-list-item>         
+            </nb-list>
+            <div>
+                <button
+                    nbButton 
+                    shape="round" 
+                    status="warning"
+                    *ngIf="canRetry()"   
+                    (click) = "retry()"    
+                > 
+                    Retry
+                </button>  
+            </div>
+        </div>
+
+        <nb-list>
+            <nb-list-item *ngFor="let contact of messageContacts; let i = index">
+                <nb-user 
+                    [name]="contact?.data?.name"
+                    title="{{contact?.data?.phoneDigits}}"
+                >
+
+                </nb-user>
+                <button 
+                    nbButton 
+                    shape="round" 
+                    appearance ="ghost" 
+                    [status]="sent(contact)? 'success' : 'basic'"
+                    
+                > 
+                    <nb-icon icon="done-all-outline">
+
+                    </nb-icon>
+                </button>                   
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+
+    </nb-card-footer>
+</nb-card>

@@ -6,7 +6,7 @@ import { MessageComponent } from './message/message.component';
 import { NewMessageComponent } from './new-message/new-message.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NbSelectModule, NbButtonModule, NbIconModule, NbInputModule, NbCardModule, NbSpinnerModule, NbToastrModule, NbCheckboxModule, NbListModule, NbUserModule, NbDialogModule } from '@nebular/theme';
+import { NbSelectModule, NbButtonModule, NbIconModule, NbInputModule, NbCardModule, NbSpinnerModule, NbToastrModule, NbCheckboxModule, NbListModule, NbUserModule, NbDialogModule, NbActionsModule } from '@nebular/theme';
 import { UtilsModule } from '../utils/utils.module';
 import { SettingModule } from '../setting/setting.module';
 import { DirectivesModule } from '../directives/directives.module';
@@ -16,11 +16,14 @@ import { FilterReceipientsService } from './filter-receipients/filter-receipient
 import { MessageService } from './message.service';
 import { ContactModule } from '../contact/contact.module';
 import { GroupModule } from '../group/group.module';
+import { MessagePreviewComponent } from './message-preview/message-preview.component';
+import { MessagePreviewService } from './message-preview/message-preview.service';
 
 const DECLARATIONS =[
   MessageComponent,
   NewMessageComponent,
-  FilterReceipientsComponent
+  FilterReceipientsComponent,
+  MessagePreviewComponent
 ];
 
 const NG_IMPORTS = [
@@ -42,7 +45,6 @@ const NB_IMPORTS = [
   NbListModule,
   NbUserModule,
   NbDialogModule
-
 ];
 
 const APP_IMPORTS =[
@@ -60,7 +62,8 @@ const OTHER_IMPORTS = [
 
 const PROVIDERS =[
   FilterReceipientsService,
-  MessageService
+  MessageService,
+  MessagePreviewService
 ];
 
 const EXPORTS = [
@@ -68,7 +71,8 @@ const EXPORTS = [
 ];
 
 const ENTRY_COMPONENTS = [
-  FilterReceipientsComponent
+  FilterReceipientsComponent,
+  MessagePreviewComponent
 ]
 
 @NgModule({

@@ -19,12 +19,13 @@ import { SmsModule } from './sms/sms.module';
 import { MessageModule } from './message/message.module';
 import localeNg from "@angular/common/locales/en-NG";
 import localeNgExtra from "@angular/common/locales/extra/en-NG";
+import { Constant } from './constant';
 
 registerLocaleData(localeNg, 'en-NG', localeNgExtra)
 
 const NB_IMPORTS = [
   NbThemeModule.forRoot({
-    name: "dark"
+    name: Constant.DEFAULT_THEME+""
   }),
   NbLayoutModule,
   NbSidebarModule.forRoot(),
@@ -58,7 +59,7 @@ const DECLARATIONS = [
 ];
 
 const PROVIDERS = [
-
+  {provide: Window, useValue: window}
 ];
 
 const EXPORTS = [

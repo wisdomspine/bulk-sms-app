@@ -28,4 +28,29 @@ export class MessageService extends DataServer<Message>{
       return matched
     })
   }
+
+  getStatus(message: Message){
+    switch (message.status){
+      case MessageStatus.SENT:
+          return "success";
+      case MessageStatus.PARTIAL:
+          return "warning";
+      case MessageStatus.NO_RECEIPIENT:
+      case MessageStatus.NOT_SENT:
+          return "danger";
+      default:
+          return "info"
+    }
+  }
+
+  isPreviewable(message: Message){
+    switch (message.status){
+      case MessageStatus.SENT:
+      case MessageStatus.PARTIAL:
+      case MessageStatus.NOT_SENT:
+          return true;
+      default:
+          return false
+    }
+  }
 }

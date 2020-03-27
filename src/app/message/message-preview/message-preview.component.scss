@@ -1,0 +1,63 @@
+@import "../../../themes.scss";
+
+@include nb-install-component() {
+    .close{
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: inline-block;
+        padding: nb-theme(layout-medium-padding);
+        z-index: 4000;
+    }
+    .control{
+        top: 0;
+        left: 0;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: nb-theme(layout-medium-padding);
+        z-index: 1000;
+    }
+    nb-card{
+        z-index: 2000;
+    }
+    nb-card-header{
+        z-index: 3000;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        >div{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            button:not(:last-child){
+                margin-right: 1rem;
+            }
+        }
+    }    
+    nb-card-body{
+        min-width: 50vw;
+        z-index: 1000;
+        display: flex;
+        flex-flow: column nowrap;
+        >div{
+            div{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-end;
+            }
+        }
+
+        >nb-list{
+            nb-list-item{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+            }
+        }
+    }
+}

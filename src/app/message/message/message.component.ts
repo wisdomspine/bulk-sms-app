@@ -9,6 +9,7 @@ import { ToastrTitle } from 'src/app/utils/interaction/toastr';
 import { I18nPluralPipe } from "@angular/common";
 import { APP_PATHS } from 'src/app/paths';
 import { filter } from 'rxjs/operators';
+import { MessagePreviewService } from '../message-preview/message-preview.service';
 
 @Component({
   selector: 'app-message',
@@ -32,7 +33,8 @@ export class MessageComponent implements OnInit {
     private server: MessageService,
     private interactionService: InteractionService,
     private ref: ChangeDetectorRef,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private messagePreviewService: MessagePreviewService
   ) { }
 
   ngOnInit() {
@@ -137,32 +139,18 @@ export class MessageComponent implements OnInit {
 
   private getStatus(message: SelectableData<Message>){
     const m = message.data;
-    switch (m.status){
-      case MessageStatus.SENT:
-          return "success";
-      case MessageStatus.PARTIAL:
-          return "warning";
-      case MessageStatus.NO_RECEIPIENT:
-      case MessageStatus.NOT_SENT:
-          return "danger";
-      default:
-          return "info"
-    }
+    return this.server.getStatus(m);
   }
 
   private isPreviewable(message: SelectableData<Message>){
     const m = message.data;
-    switch (m.status){
-      case MessageStatus.SENT:
-      case MessageStatus.PARTIAL:
-      case MessageStatus.NOT_SENT:
-          return true;
-      default:
-          return false
-    }    
+    return this.server.isPreviewable(m);    
   }
 
   preview(message: SelectableData<Message>){
-    
+    this.messagePreviewService.preview({
+      id: message.id,
+      status: this.getStatus(message)
+    })
   }
 }
