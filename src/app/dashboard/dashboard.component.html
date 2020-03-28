@@ -1,0 +1,70 @@
+<div class="container">
+    <h6>
+        Dashboard
+    </h6>
+    <div>
+        <nb-card status="primary" accent="primary" [routerLink]="[contactsLink]">
+            <nb-card-body>
+                <h6>Contacts</h6>
+                <span>
+                    <nb-icon icon="person" status="primary">
+        
+                    </nb-icon>
+                    <nb-icon icon="person" status="primary">
+        
+                    </nb-icon>                
+                </span>
+                <nb-badge
+                    position = "bottom end"
+                    status = "primary"
+                    [text] = "contactCount"
+                >
+
+                </nb-badge>
+            </nb-card-body>
+        </nb-card> 
+
+        <nb-card status="warning" accent="warning" [routerLink]="[groupsLink]">
+            <nb-card-body>
+                <h6>Groups</h6>
+                <span>
+                    <nb-icon icon="people" status="warning">
+        
+                    </nb-icon>
+                    <nb-icon icon="people" status="warning">
+        
+                    </nb-icon>                
+                </span>
+                <nb-badge
+                    position = "bottom end"
+                    status = "warning"
+                    [text] = "groupCount"
+                >
+
+                </nb-badge>
+            </nb-card-body>
+        </nb-card> 
+
+        <nb-card status="success" accent="success" [routerLink]="[messagesLink]">
+            <nb-card-body>
+                <h6>Messages</h6>
+                <span>
+                    <nb-icon icon="message-circle" status="success">
+        
+                    </nb-icon>
+                    <nb-icon icon="message-circle" status="success">
+        
+                    </nb-icon>                
+                </span>
+                <nb-badge
+                    position = "bottom end"
+                    status = "success"
+                    [text] = "messageCount"
+                >
+
+                </nb-badge>
+            </nb-card-body>
+        </nb-card>  
+
+    </div>
+</div>

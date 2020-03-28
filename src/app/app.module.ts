@@ -20,6 +20,7 @@ import { MessageModule } from './message/message.module';
 import localeNg from "@angular/common/locales/en-NG";
 import localeNgExtra from "@angular/common/locales/extra/en-NG";
 import { Constant } from './constant';
+import { BootstrapComponent } from './bootstrap/bootstrap.component';
 
 registerLocaleData(localeNg, 'en-NG', localeNgExtra)
 
@@ -33,7 +34,7 @@ const NB_IMPORTS = [
   NbEvaIconsModule,
   NbDialogModule.forRoot(),
   NbToastrModule.forRoot(),
-  NbMenuModule.forRoot()
+  NbMenuModule.forRoot(),
 ]
 
 const NG_IMPORTS = [
@@ -45,17 +46,18 @@ const NG_IMPORTS = [
 
 const APP_IMPORTS = [
   SettingModule,
-  ContactModule,
+  // ContactModule,
   AppRoutingModule,
   UtilsModule,
   DirectivesModule,
-  GroupModule,
+  // GroupModule,
   SmsModule.forRoot(environment.nexmoConfig), //configure the sms module
-  MessageModule
+  // MessageModule
 ]
 
 const DECLARATIONS = [
-  AppComponent
+  AppComponent,
+  BootstrapComponent
 ];
 
 const PROVIDERS = [
@@ -74,7 +76,7 @@ const EXPORTS = [
     ...APP_IMPORTS,
   ],
   providers: [...PROVIDERS],
-  bootstrap: [AppComponent],
+  bootstrap: [BootstrapComponent],
   exports: [...EXPORTS]
 })
 export class AppModule { }

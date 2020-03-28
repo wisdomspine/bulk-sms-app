@@ -1,0 +1,68 @@
+@import "../../themes.scss";
+
+@include nb-install-component() {
+   div.container{
+       margin-top: 0px!important;
+       h6{
+        margin-top: .5rem!important;
+        margin-bottom: .5rem!important;
+       }
+       >div{
+           @include media-breakpoint-up(md){
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            nb-card{
+                width: calc((100% - 2.5rem)/3);
+            }
+           }
+           @include media-breakpoint-down(sm){
+            display: flex;
+            flex-flow: column nowrap;
+            nb-card{
+                &:not(:last-child){
+                    margin-bottom: 1.75rem;
+                }
+            }
+           }
+           nb-card{
+               &:hover{
+                   cursor: pointer;
+                   @include app-prefix(box-shadow, (none!important));
+                   @include app-prefix(transition, (all .5s ease-in-out));
+               }
+
+               nb-card-body{
+                   display: flex;
+                   flex-flow: column nowrap;
+                   align-items: center;
+                    span{
+                        position: relative;
+                        height: 5rem;
+                        text-align: center;
+                        display: inline-block;
+                        width: 5rem;
+                        margin: auto;
+                    }
+                   nb-icon{
+                       font-size: 4rem;
+                       position: absolute;
+                       top: 0;
+                       left: 0;
+                       &:last-child{
+                           top: 0.2rem;
+                           left: 0.3rem;
+                           color: nb-theme(background-basic-color-4)
+                       }
+                   }
+                   nb-badge{
+                       right: 1.5rem;
+                       bottom: 1rem;
+                       font-size: 1.25rem;
+                       padding: .5rem;
+                   }
+               }
+           }
+       }
+   }
+}

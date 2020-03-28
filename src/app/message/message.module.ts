@@ -66,14 +66,15 @@ const PROVIDERS =[
   MessagePreviewService
 ];
 
-const EXPORTS = [
-  MessageRoutingModule
-];
-
 const ENTRY_COMPONENTS = [
   FilterReceipientsComponent,
   MessagePreviewComponent
 ]
+
+const EXPORTS = [
+  MessageRoutingModule,
+  ...ENTRY_COMPONENTS
+];
 
 @NgModule({
   declarations: [...DECLARATIONS],

@@ -4,10 +4,15 @@ import { AppComponent } from './app.component';
 
 
 const routes: Routes = [
-  // {
-  //   path: "contacts/new",
-  //   component: AppComponent
-  // }
+  {
+    path: "",
+    component: AppComponent,
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+  },
+  {
+    path: "**",
+    redirectTo: "/"
+  }
 ];
 
 @NgModule({
