@@ -11,12 +11,12 @@ function initWindow() {
         width: 1000,
         webPreferences:{
             nodeIntegration: true
-        }
+        },
     })
 
     appWindow.loadURL(
         url.format({
-            pathname: path.join(__dirname, '/dist/index.html'),
+            pathname: path.join(__dirname, '/dist/sms-app/index.html'),
             protocol: "file",
             slashes: true
         })
@@ -24,6 +24,7 @@ function initWindow() {
 
     appWindow.on("closed", ()=>appWindow = null)
 }
+app.allowRendererProcessReuse = true;
 
 app.on("ready", initWindow);
 
